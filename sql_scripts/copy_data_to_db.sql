@@ -1,0 +1,1 @@
+\copy movies FROM 'data/movies.dat';
