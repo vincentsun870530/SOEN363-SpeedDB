@@ -1,0 +1,11 @@
+TRUNCATE TABLE movies;
+TRUNCATE TABLE actors;
+TRUNCATE TABLE genres;
+TRUNCATE TABLE tags;
+TRUNCATE TABLE tag_names;
+
+DROP TABLE movies;
+DROP TABLE actors;
+DROP TABLE genres;
+DROP TABLE tags;
+DROP TABLE tag_names;
