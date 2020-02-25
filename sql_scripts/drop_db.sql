@@ -1,1 +1,1 @@
-DROP DATABASE speeddb;
+DROP DATABASE IF EXISTS speeddb;

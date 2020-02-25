@@ -11,19 +11,23 @@ CREATE TABLE movies (
   ),
   PRIMARY KEY(MID, Title, Year)
 );
+
 -- Create actors table
 CREATE TABLE actors (
   MID Int NOT NULL,
   Name Varchar(255) NOT NULL,
   cast_position Int NOT NULL
 );
+
 -- Create genres table
 CREATE TABLE genres (
   MID Int NOT NULL,
   Genre Varchar(255) NOT NULL
 );
+
 -- Create tags table
 CREATE TABLE tags (MID Int NOT NULL, TID Int NOT NULL);
+
 -- Create tag_names table
 CREATE TABLE tag_names (
   TID Int NOT NULL,
