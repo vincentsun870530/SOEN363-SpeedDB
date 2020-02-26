@@ -15,4 +15,5 @@ select actors.name, min(year), max(year), max(year)-min(year) number_of_years
 from movies, actors
 where movies.mid = actors.mid
 group by actors.name
-order by max(year)-min(year) desc ;
+order by max(year)-min(year) desc 
+limit 1 ;
