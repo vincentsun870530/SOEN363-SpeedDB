@@ -1,0 +1,16 @@
+-- Finally, from the view co_actors, eliminate the distinct actors that appear in the view
+-- non_extistent. Print the names of all co_actors except Annette Nicole.
+SELECT
+    A1.name
+FROM
+    co_actors AS A1
+WHERE
+    A1.name <> 'Annette Nicole'
+EXCEPT
+SELECT
+    A2.name
+FROM
+    non_existent AS A2
+Limit 10;
+
+\copy ( SELECT A1.name FROM co_actors AS A1 WHERE A1.name <> 'Annette Nicole' EXCEPT SELECT A2.name FROM non_existent AS A2 Limit 10 ) to 'csv/questionj/questionj_4.csv' with csv;

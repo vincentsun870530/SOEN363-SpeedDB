@@ -1,0 +1,34 @@
+-- Third, create a view called non_existent from the view all_combinations by removing
+-- all legitimate (co_actor,mid) pairs (i.e., pairs that exist in the actors table). Print
+-- the number of rows in this view.
+CREATE VIEW non_existent AS
+SELECT
+    A1.name,
+    A1.mid
+FROM
+    all_combinations AS A1
+EXCEPT
+SELECT
+    A1.name,
+    A1.mid
+FROM
+    all_combinations AS A1
+WHERE
+    A1.mid IN(
+        SELECT
+            actors.mid
+        FROM
+            actors
+        WHERE
+            A1.mid = actors.mid
+            AND A1.name = actors.name
+    );
+
+-- Print number of rows
+SELECT
+    count(*)
+FROM
+    non_existent
+Limit 10;
+
+\copy ( SELECT count(*) FROM  non_existent LIMIT 10 ) to 'csv/questionj/questionj_3.csv' with csv;

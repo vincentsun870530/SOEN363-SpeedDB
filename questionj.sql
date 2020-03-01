@@ -28,7 +28,10 @@ WHERE
 SELECT
     count(*)
 FROM
-    co_actors;
+    co_actors
+Limit 10;
+
+\copy ( SELECT count(*) FROM co_actors LIMIT 10 ) to 'csv/questionj/questionj_1.csv' with csv;
 
 -- Second, create a view called all_combinations which returns all possible combinations
 -- of co_actors and the movie ids in which Annette Nicole played. Print the number of
@@ -45,7 +48,10 @@ FROM
 SELECT
     count(*)
 FROM
-    all_combinations;
+    all_combinations
+Limit 10;
+
+\copy ( SELECT count(*) FROM all_combinations LIMIT 10 ) to 'csv/questionj/questionj_2.csv' with csv;
 
 -- Third, create a view called non_existent from the view all_combinations by removing
 -- all legitimate (co_actor,mid) pairs (i.e., pairs that exist in the actors table). Print
@@ -77,7 +83,11 @@ WHERE
 SELECT
     count(*)
 FROM
-    non_existent;
+    non_existent
+Limit 10;
+
+\copy ( SELECT count(*) FROM  non_existent LIMIT 10 ) to 'csv/questionj/questionj_3.csv' with csv;
+
 
 -- Finally, from the view co_actors, eliminate the distinct actors that appear in the view
 -- non_extistent. Print the names of all co_actors except Annette Nicole.
@@ -91,4 +101,7 @@ EXCEPT
 SELECT
     A2.name
 FROM
-    non_existent AS A2;
+    non_existent AS A2
+Limit 10;
+
+\copy ( SELECT A1.name FROM co_actors AS A1 WHERE A1.name <> 'Annette Nicole' EXCEPT SELECT A2.name FROM non_existent AS A2 Limit 10 ) to 'csv/questionj/questionj_4.csv' with csv;

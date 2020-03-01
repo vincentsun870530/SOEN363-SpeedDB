@@ -2,13 +2,13 @@
 -- =======================================================================
 -- 1/Get view for fraction of common actors
 -- =======================================================================
-DROP VIEW IF EXISTS fraction_of_common_actors;
+DROP VIEW IF EXISTS fraction_of_common_actors CASCADE;
 
-DROP VIEW IF EXISTS number_of_actors;
+DROP VIEW IF EXISTS number_of_actors CASCADE;
 
-DROP VIEW IF EXISTS number_common_actor;
+DROP VIEW IF EXISTS number_common_actor CASCADE;
 
-DROP VIEW IF EXISTS common_actors;
+DROP VIEW IF EXISTS common_actors CASCADE;
 
 -- 1.1
 CREATE VIEW common_actors AS
@@ -71,9 +71,6 @@ SELECT
     *
 FROM
     common_actors
-WHERE
-    movie1_id = 1
-    AND movie2_id = 2355
 LIMIT
     10;
 
@@ -101,16 +98,19 @@ FROM
 LIMIT
     10;
 
+-- Copy output to csv file
+\copy ( SELECT movie1_id, movie2_id, actor_fraction FROM fraction_of_common_actors LIMIT 10 ) to 'csv/questionl/questionl_fraction_of_common_actors.csv' with csv;
+
 -- =======================================================================
 -- 2/Get view for fraction of common tags
 -- =======================================================================
-DROP VIEW IF EXISTS fraction_of_common_tags;
+DROP VIEW IF EXISTS fraction_of_common_tags CASCADE;
 
-DROP VIEW IF EXISTS number_of_tags;
+DROP VIEW IF EXISTS number_of_tags CASCADE;
 
-DROP VIEW IF EXISTS number_common_tags;
+DROP VIEW IF EXISTS number_common_tags CASCADE;
 
-DROP VIEW IF EXISTS common_tags;
+DROP VIEW IF EXISTS common_tags CASCADE;
 
 -- 2.1
 CREATE VIEW common_tags AS
@@ -203,16 +203,20 @@ FROM
 LIMIT
     10;
 
+-- Copy output to csv file
+\copy ( SELECT tag1_mid, tag2_mid, tag_fraction FROM fraction_of_common_tags LIMIT 10 ) to 'csv/questionl/questionl_fraction_of_common_tags.csv' with csv;
+
+
 -- =======================================================================
 -- 3/Get view for fraction of common genres
 -- =======================================================================
-DROP VIEW IF EXISTS fraction_of_common_genres;
+DROP VIEW IF EXISTS fraction_of_common_genres CASCADE;
 
-DROP VIEW IF EXISTS number_of_genres;
+DROP VIEW IF EXISTS number_of_genres CASCADE;
 
-DROP VIEW IF EXISTS number_common_genres;
+DROP VIEW IF EXISTS number_common_genres CASCADE;
 
-DROP VIEW IF EXISTS common_genres;
+DROP VIEW IF EXISTS common_genres CASCADE;
 
 -- 3.1
 CREATE VIEW common_genres AS
@@ -305,3 +309,5 @@ FROM
 LIMIT
     10;
 
+-- Copy output to csv file
+\copy ( SELECT genre1_mid, genre2_mid, genre_fraction FROM fraction_of_common_genres LIMIT 10 ) to 'csv/questionl/questionl_fraction_of_common_genres.csv' with csv;

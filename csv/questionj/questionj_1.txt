@@ -1,0 +1,26 @@
+-- First, create a view called co_actors, which returns the distinct names of actors who
+-- played in at least one movie with Annette Nicole. Print the number of rows in this
+-- view.
+CREATE VIEW co_actors AS
+SELECT
+    DISTINCT A1.name
+FROM
+    actors AS A1
+WHERE
+    A1.mid IN (
+        SELECT
+            A2.mid
+        FROM
+            actors AS A2
+        WHERE
+            A2.name = 'Annette Nicole'
+    );
+
+-- Print number of rows
+SELECT
+    count(*)
+FROM
+    co_actors
+Limit 10;
+
+\copy ( SELECT count(*) FROM co_actors LIMIT 10 ) to 'csv/questionj/questionj_1.csv' with csv;

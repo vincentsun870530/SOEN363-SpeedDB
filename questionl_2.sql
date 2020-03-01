@@ -1,9 +1,9 @@
 -- =======================================================================
 -- 4/Get view for fraction of age gap
 -- =======================================================================
-DROP VIEW IF EXISTS fraction_of_age_gap;
+DROP VIEW IF EXISTS fraction_of_age_gap CASCADE;
 
-DROP VIEW IF EXISTS age_gaps;
+DROP VIEW IF EXISTS age_gaps CASCADE;
 
 -- 4.1
 CREATE VIEW age_gaps AS
@@ -51,13 +51,16 @@ FROM
 LIMIT
     10;
 
+-- Copy output to csv file
+\copy ( SELECT movie1_mid_age, movie2_mid_age, age_gap_fraction FROM fraction_of_age_gap LIMIT 10 ) to 'csv/questionl/questionl_fraction_of_age_gap.csv' with csv;
+
 
 -- =======================================================================
 -- 5/Get view for fraction of rating gap
 -- =======================================================================
-DROP VIEW IF EXISTS fraction_of_rating_gap;
+DROP VIEW IF EXISTS fraction_of_rating_gap CASCADE;
 
-DROP VIEW IF EXISTS rating_gaps;
+DROP VIEW IF EXISTS rating_gaps CASCADE;
 
 -- 5.1
 CREATE VIEW rating_gaps AS
@@ -100,3 +103,5 @@ FROM
     fraction_of_rating_gap
 LIMIT
     10;
+
+\copy ( SELECT movie1_mid_rating, movie2_mid_rating, rating_gap_fraction FROM fraction_of_rating_gap LIMIT 10 ) to 'csv/questionl/questionl_fraction_of_rating_gap.csv' with csv;

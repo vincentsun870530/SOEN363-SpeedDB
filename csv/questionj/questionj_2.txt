@@ -1,0 +1,19 @@
+-- Second, create a view called all_combinations which returns all possible combinations
+-- of co_actors and the movie ids in which Annette Nicole played. Print the number of
+-- rows in this view. Note how that this view contains fake (co_actor, mid) combinations!
+CREATE VIEW all_combinations AS
+SELECT
+    co_actors.name,
+    actors.mid
+FROM
+    co_actors
+    JOIN actors ON actors.name = 'Annette Nicole';
+
+-- Print number of rows
+SELECT
+    count(*)
+FROM
+    all_combinations
+Limit 10;
+
+\copy ( SELECT count(*) FROM all_combinations LIMIT 10 ) to 'csv/questionj/questionj_2.csv' with csv;

@@ -1,0 +1,15 @@
+-- 1. For the actor Tom Cruise, print his name and the number of distinct co-actors.
+SELECT
+    A1.name,
+    COUNT(DISTINCT(A2.name)) AS co_actors_N
+FROM
+    actors A1,
+    actors A2
+WHERE
+    A1.mid = A2.mid
+    AND A1.name = 'Tom Cruise'
+GROUP BY
+    A1.name
+LIMIT 10;
+
+\copy ( SELECT A1.name, COUNT(DISTINCT(A2.name)) FROM actors A1, actors A2 WHERE A1.mid = A2.mid AND A1.name = 'Tom Cruise' GROUP BY A1.name LIMIT 10 ) to 'csv/questionk/questionk_1.csv' with csv
